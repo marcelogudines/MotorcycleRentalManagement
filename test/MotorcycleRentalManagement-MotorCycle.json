@@ -1,0 +1,429 @@
+{
+	"info": {
+		"_postman_id": "57fe2999-8da3-435c-9622-44bdd4b855a2",
+		"name": "MotorcycleRental API - Motorcycle Use Case Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register Motorcycle - OK",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Gerar dados dinâmicos para o registro da motocicleta",
+							"pm.environment.set(\"identificador\", \"moto_\" + Math.floor(Math.random() * 10000));",
+							"pm.environment.set(\"ano\", Math.floor(2000 + Math.random() * 22));",
+							"pm.environment.set(\"modelo\", \"Modelo_\" + Math.floor(Math.random() * 100));",
+							"pm.environment.set(\"placa\", \"ABC-\" + Math.floor(1000 + Math.random() * 9000));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"motoId\", jsonData.Identificador);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Identificador\": \"{{identificador}}\",\n    \"Ano\": {{ano}},\n    \"Modelo\": \"{{modelo}}\",\n    \"Placa\": \"{{placa}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/motos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"motos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Motorcycle - Identificador Duplicado",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"placanova\", \"ABC-\" + Math.floor(1000 + Math.random() * 9000));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Response contains identificador duplicate error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.Mensagem == \"O identificador já existe no sistema\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Identificador\": \"{{motoId}}\",\n    \"Ano\": {{ano}},\n    \"Modelo\": \"{{modelo}}\",\n    \"Placa\": \"{{placanova}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/motos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"motos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Motorcycle - Placa Duplicada",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"newIdentificador\", \"moto_\" + Math.floor(Math.random() * 10000));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Response contains placa duplicate error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.Mensagem == \"A placa já existe no sistema\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Identificador\": \"{{newIdentificador}}\",\n    \"Ano\": {{ano}},\n    \"Modelo\": \"{{modelo}}\",\n    \"Placa\": \"{{placa}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/motos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"motos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Motorcycle License Plate - Valid Data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"novaPlaca\", \"XYZ-\" + Math.floor(1000 + Math.random() * 9000));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Placa modificada com sucesso\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expectjsonData.Mensagem == \"Placa modificada com sucesso\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Placa\": \"{{novaPlaca}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/motos/{{motoId}}/placa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"motos",
+						"{{motoId}}",
+						"placa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Motorcycle License Plate - Placa Duplicada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Response contains placa duplicate error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.Mensagem == \"A nova placa já existe no sistema\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Placa\": \"{{placa}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/motos/{{motoId}}/placa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"motos",
+						"{{motoId}}",
+						"placa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Motorcycle License Plate - Moto Não Encontrada",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"motoIdInvalido\", \"moto_99999\");",
+							"pm.environment.set(\"placaInvalida\", \"XYZ-\" + Math.floor(1000 + Math.random() * 9000));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Response contains moto not found error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.Mensagem == \"Moto não encontrada no sistema\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Placa\": \"{{placaInvalida}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/motos/{{motoIdInvalido}}/placa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"motos",
+						"{{motoIdInvalido}}",
+						"placa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Motorcycle - Valid Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Moto removida com sucesso\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.Mensagem == \"Moto removida com sucesso\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/motos/{{motoId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"motos",
+						"{{motoId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Motorcycle - Moto Não Encontrada",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"motoIdInvalido\", \"moto_99999\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Response contains moto not found error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.Mensagem == \"Moto não encontrada no sistema\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/motos/{{motoIdInvalido}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"motos",
+						"{{motoIdInvalido}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"exec": [
+					"pm.environment.set(\"baseUrl\", \"https://localhost:44389\");"
+				],
+				"type": "text/javascript"
+			}
+		}
+	]
+}

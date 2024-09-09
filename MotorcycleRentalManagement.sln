@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2435A04F-6F8A-451D-84AA-C3C527E5F1F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRentalManagement.API", "src\MotorcycleRentalManagement.API\MotorcycleRentalManagement.API.csproj", "{02109EA3-C04D-4D08-A3B6-FE394BBAEC95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRentalManagement.Domain", "src\MotorcycleRentalManagement.Domain\MotorcycleRentalManagement.Domain.csproj", "{6EFF3A0C-BFCA-48A5-AB73-6293A7355293}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorcycleRentalManagement.Infrastructure", "src\MotorcycleRentalManagement.Infrastructure\MotorcycleRentalManagement.Infrastructure.csproj", "{F75F7EE9-93AF-4F30-853E-DBED05441DA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{5C6E520E-4DCD-41D6-96EA-EC2427EB75D8}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02109EA3-C04D-4D08-A3B6-FE394BBAEC95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02109EA3-C04D-4D08-A3B6-FE394BBAEC95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02109EA3-C04D-4D08-A3B6-FE394BBAEC95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02109EA3-C04D-4D08-A3B6-FE394BBAEC95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EFF3A0C-BFCA-48A5-AB73-6293A7355293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EFF3A0C-BFCA-48A5-AB73-6293A7355293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EFF3A0C-BFCA-48A5-AB73-6293A7355293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EFF3A0C-BFCA-48A5-AB73-6293A7355293}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F75F7EE9-93AF-4F30-853E-DBED05441DA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F75F7EE9-93AF-4F30-853E-DBED05441DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F75F7EE9-93AF-4F30-853E-DBED05441DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F75F7EE9-93AF-4F30-853E-DBED05441DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02109EA3-C04D-4D08-A3B6-FE394BBAEC95} = {2435A04F-6F8A-451D-84AA-C3C527E5F1F0}
+		{6EFF3A0C-BFCA-48A5-AB73-6293A7355293} = {2435A04F-6F8A-451D-84AA-C3C527E5F1F0}
+		{F75F7EE9-93AF-4F30-853E-DBED05441DA4} = {2435A04F-6F8A-451D-84AA-C3C527E5F1F0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {649F90D7-E428-4ADF-A640-A330CCE18CDD}
+	EndGlobalSection
+EndGlobal
