@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "57fe2999-8da3-435c-9622-44bdd4b855a2",
+		"_postman_id": "e6656942-ab10-4b16-9702-2000f5ce9fa8",
 		"name": "MotorcycleRental API - Motorcycle Use Case Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -187,7 +187,7 @@
 							"});",
 							"pm.test(\"Placa modificada com sucesso\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expectjsonData.Mensagem == \"Placa modificada com sucesso\");",
+							"   pm.expect(jsonData.Mensagem == \"Placa modificada com sucesso\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -254,13 +254,13 @@
 					"raw": "{\n    \"Placa\": \"{{placa}}\"\n}"
 				},
 				"url": {
-					"raw": "{{baseUrl}}/motos/{{motoId}}/placa",
+					"raw": "{{baseUrl}}/motos/{{identificador}}/placa",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
 						"motos",
-						"{{motoId}}",
+						"{{identificador}}",
 						"placa"
 					]
 				}
